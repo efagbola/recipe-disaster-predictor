@@ -1,15 +1,17 @@
-# Recipe Ingredient Ratings Project
+# Recipe Ratings Project
 
-This project uses Allrecipes data to study whether ingredients and nutrition information can help predict lower-rated recipes. The main goal is to understand which ingredients are associated with worse ratings and whether recipe quality can be predicted from ingredient composition.
+This project looks at whether recipe ingredients and nutrition information can help predict lower-rated recipes. It also identifies individual ingredients and ingredient combinations that are associated with lower ratings.
 
-`scrape_all.py` is the scraping script. It collects recipe information from Allrecipes, including titles, ingredients, ratings, rating counts, nutrition values, and recipe URLs.
+`scrape_all.py` collects recipe data from Allrecipes, including titles, ingredients, ratings, rating counts, nutrition values, and URLs.
 
-`clean_data.py` is the data cleaning script. It takes the raw scraped data, cleans the ingredient lists, removes quantities and units, standardizes ingredient names, and converts ratings and nutrition values into numeric columns.
+`clean_data.py` cleans the scraped recipe data. It standardizes ingredient names, removes quantities and units, converts rating and nutrition columns to numeric values, and creates cleaned datasets for analysis.
 
-`descriptive_stats.ipynb` is the exploratory analysis notebook. It summarizes the cleaned data, looks at ratings and nutrition values, identifies common ingredients, and explores which individual ingredients are linked to lower average ratings.
+`descriptive_stats.ipynb` explores the cleaned data. It includes summaries of ratings, nutrition values, ingredient counts, common ingredients, and basic ingredient rating patterns.
 
-`classification_models.ipynb` is the machine learning notebook. It builds baseline classification models to predict whether a recipe is lower-rated using ingredients, nutrition variables, ingredient count, and rating count.
+`classification_models.ipynb` builds and compares machine learning models to predict whether a recipe is lower-rated. It compares the champion Logistic Regression model with challenger models and evaluates them using accuracy, precision, recall, F1-score, ROC-AUC, and confusion matrices.
 
-`ingredient_combinations.py` is the ingredient interaction script. It was added after the baseline models to analyze ingredient pairs and triples and see which combinations are associated with lower ratings.
+`ingredient_combinations.py` analyzes ingredient pairs and triples. It finds combinations that appear often enough to study and checks which ones are associated with lower ratings.
 
-The project workflow is to scrape the data, clean it, explore the descriptive statistics, build baseline classification models, and then analyze ingredient combinations for deeper interpretation. The final goal is to predict recipe quality from ingredients and identify ingredients or ingredient combinations that may be linked to lower ratings.
+`ingredient_interpretation.ipynb` explains the ingredient findings. It uses the chosen Logistic Regression model to identify individual ingredients associated with lower-rated recipes, and it also summarizes risky ingredient pairs and triples.
+
+The overall workflow is to scrape the data, clean it, explore the dataset, build classification models, and then interpret which ingredients or ingredient combinations are linked to lower-rated recipes.
