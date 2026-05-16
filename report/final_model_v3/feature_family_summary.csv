@@ -1,0 +1,7 @@
+feature_set,includes_content,includes_text,includes_quantity,includes_quantity_interactions,includes_preparation_interactions,includes_rating_count,n_features_train_average,notes
+content_only_core,True,True,False,False,False,False,428,"Train-fitted dense feature builder with category/cuisine/source labels, ingredient indicators, nutrition/time/complexity features, and reduced text features."
+content_plus_quantity,True,True,True,False,False,False,458,"Train-fitted dense feature builder with category/cuisine/source labels, ingredient indicators, nutrition/time/complexity features, and reduced text features."
+content_plus_reliability,True,True,False,False,False,True,430,"Train-fitted dense feature builder with category/cuisine/source labels, ingredient indicators, nutrition/time/complexity features, and reduced text features."
+content_quantity_interactions,True,True,True,True,True,False,466,"Train-fitted dense feature builder with category/cuisine/source labels, ingredient indicators, nutrition/time/complexity features, and reduced text features."
+content_quantity_plus_reliability,True,True,True,False,False,True,460,"Train-fitted dense feature builder with category/cuisine/source labels, ingredient indicators, nutrition/time/complexity features, and reduced text features."
+full_content_quantity_interactions_plus_reliability,True,True,True,True,True,True,468,"Train-fitted dense feature builder with category/cuisine/source labels, ingredient indicators, nutrition/time/complexity features, and reduced text features."

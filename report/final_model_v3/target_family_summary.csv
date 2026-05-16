@@ -1,0 +1,11 @@
+target_name,target_type,rating_source_used,uses_bayesian_adjustment,uses_category_adjustment,m_value,min_rating_count_filter,n_obs,positive_class_share,notes
+low_rating_bottom30_raw,raw_percentile,rating_value,False,False,,0,13516,0.3020124297129328,Global bottom 30 percent threshold using the best available base rating.
+low_rating_bottom30_raw,raw_percentile,rating_value,False,False,,25,7396,0.2641968631692807,Global bottom 30 percent threshold using the best available base rating.
+low_rating_bottom20_raw,raw_percentile,rating_value,False,False,,0,13516,0.22491861497484464,More selective raw threshold using the global bottom 20 percent of the base rating.
+low_rating_bottom20_raw,raw_percentile,rating_value,False,False,,25,7396,0.16333153055705787,More selective raw threshold using the global bottom 20 percent of the base rating.
+low_rating_bottom30_bayes_global_m25,bayesian_global,rating_value,True,False,25.0,0,13516,0.30008878366380587,Bottom 30 percent after global Bayesian shrinkage with m=25.
+low_rating_bottom30_bayes_global_m25,bayesian_global,rating_value,True,False,25.0,25,7396,0.31138453217955653,Bottom 30 percent after global Bayesian shrinkage with m=25.
+low_rating_bottom30_bayes_category_m25,bayesian_category,rating_value,True,True,25.0,0,13516,0.30001479727730096,Bottom 30 percent after category-aware Bayesian shrinkage with m=25; sparse categories fall back to the global prior. Fallback-to-global rows: 466.
+low_rating_bottom30_bayes_category_m25,bayesian_category,rating_value,True,True,25.0,25,7396,0.29056246619794485,Bottom 30 percent after category-aware Bayesian shrinkage with m=25; sparse categories fall back to the global prior. Fallback-to-global rows: 233.
+low_rating_bottom30_category_relative,category_relative,rating_value,False,True,,0,13516,0.31569991121633617,"Bottom 30 percent within category when category support >= 30, otherwise global percentile fallback. Fallback-to-global rows: 466."
+low_rating_bottom30_category_relative,category_relative,rating_value,False,True,,25,7396,0.28109789075175773,"Bottom 30 percent within category when category support >= 30, otherwise global percentile fallback. Fallback-to-global rows: 233."

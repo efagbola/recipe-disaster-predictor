@@ -1,0 +1,7 @@
+target,feature_set,model,subgroup,n_obs,positive_class_share,pr_auc,roc_auc,precision_at_10,lift_at_10,note
+low_rating_bottom30_bayes_category_m25,content_quantity_plus_reliability,XGBoostClassifier,25-99,631,0.3359746434231379,0.5639081188380811,0.7157652992299726,0.65625,1.9532724056603774,
+low_rating_bottom30_bayes_category_m25,content_quantity_plus_reliability,XGBoostClassifier,100+,849,0.25677267373380447,0.5866607552236613,0.7855522761307957,0.7058823529411765,2.749055585536967,
+low_rating_bottom30_bayes_category_m25,full_content_quantity_interactions_plus_reliability,XGBoostClassifier,25-99,631,0.3359746434231379,0.5551295647193295,0.710147701175305,0.65625,1.9532724056603774,
+low_rating_bottom30_bayes_category_m25,full_content_quantity_interactions_plus_reliability,XGBoostClassifier,100+,849,0.25677267373380447,0.5818265963242233,0.7860102647610463,0.6588235294117647,2.565785213167836,
+low_rating_bottom30_bayes_category_m25,content_plus_reliability,XGBoostClassifier,25-99,631,0.3359746434231379,0.5826538808254493,0.720031971900752,0.71875,2.1392983490566038,
+low_rating_bottom30_bayes_category_m25,content_plus_reliability,XGBoostClassifier,100+,849,0.25677267373380447,0.5831854382520916,0.7813067942249815,0.7058823529411765,2.749055585536967,
