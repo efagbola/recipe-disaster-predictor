@@ -111,9 +111,10 @@ Some large files are zipped so they can be stored more easily in GitHub.
 
 ## Report Folder
 
-The `report/final_model_v3/` folder contains report-ready outputs from the final modelling script. This includes model comparison tables, figures, summaries, and final recommendation files.
+The `report/` folder contains the final pdf required for submission.
 
-The final PDF report is not included yet because it is still being completed. Once finished, it will be added to the `report/` folder.
+Inside `report/final_model_v3/` there are report-ready outputs from the final modelling script. This includes model comparison tables, figures, summaries, and final recommendation files.
+
 
 ## Streamlit Demo App
 
