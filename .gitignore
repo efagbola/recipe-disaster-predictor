@@ -216,3 +216,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# macOS / local packaging noise
+.DS_Store
+report/final_model_v3.zip
