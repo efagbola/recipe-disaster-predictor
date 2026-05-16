@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import ast
+import json
 import math
 import os
 import re
@@ -44,8 +45,6 @@ warnings.filterwarnings("ignore")
 
 
 ROOT = Path(__file__).resolve().parents[1]
-RAW_RECIPES_PATH = ROOT.parent / "allrecipes_all.csv"
-RAW_INGREDIENTS_PATH = ROOT.parent / "recipes_ingredients_long.csv"
 REPORT_DIR = ROOT / "report" / "final_model_v3"
 
 
@@ -244,6 +243,35 @@ def get_run_config(mode: str) -> RunConfig:
 
 def ensure_report_dir() -> None:
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def resolve_input_file(explicit_path: Optional[str], candidate_names: Sequence[str]) -> Path:
+    if explicit_path:
+        path = Path(explicit_path).expanduser().resolve()
+        if not path.exists():
+            raise FileNotFoundError(f"Input file not found: {path}")
+        return path
+
+    search_roots = [
+        ROOT,
+        ROOT / "data",
+        ROOT / "inputs",
+        ROOT.parent,
+        ROOT.parent / "data",
+        ROOT.parent / "inputs",
+    ]
+    for root in search_roots:
+        for name in candidate_names:
+            candidate = root / name
+            if candidate.exists():
+                return candidate.resolve()
+
+    looked_for = ", ".join(candidate_names)
+    searched = ", ".join(str(path) for path in search_roots)
+    raise FileNotFoundError(
+        f"Could not locate any of [{looked_for}]. Searched: {searched}. "
+        "Pass --recipes-file and --ingredients-file explicitly if your data lives elsewhere."
+    )
 
 
 def safe_literal_list(value: Any) -> List[str]:
@@ -481,9 +509,13 @@ def add_quantity_features(long_df: pd.DataFrame) -> pd.DataFrame:
     return quantity_df
 
 
-def build_master_dataset(config: RunConfig) -> Tuple[pd.DataFrame, pd.DataFrame, Dict[str, Any]]:
-    raw_df = pd.read_csv(RAW_RECIPES_PATH).reset_index(drop=False).rename(columns={"index": "recipe_id"})
-    long_df = pd.read_csv(RAW_INGREDIENTS_PATH)
+def build_master_dataset(
+    config: RunConfig,
+    recipes_path: Path,
+    ingredients_path: Path,
+) -> Tuple[pd.DataFrame, pd.DataFrame, Dict[str, Any]]:
+    raw_df = pd.read_csv(recipes_path).reset_index(drop=False).rename(columns={"index": "recipe_id"})
+    long_df = pd.read_csv(ingredients_path)
 
     rating_info = detect_true_rating_source(raw_df)
     raw_df["rating_value_num"] = pd.to_numeric(raw_df["rating_value"], errors="coerce")
@@ -1682,15 +1714,37 @@ def main() -> None:
     mode_group = parser.add_mutually_exclusive_group()
     mode_group.add_argument("--quick", action="store_true", help="Run the quick comparison suite.")
     mode_group.add_argument("--full", action="store_true", help="Run the fuller comparison suite.")
+    parser.add_argument(
+        "--recipes-file",
+        type=str,
+        default=None,
+        help="Path to the raw recipe CSV. If omitted, the script searches common project-relative locations.",
+    )
+    parser.add_argument(
+        "--ingredients-file",
+        type=str,
+        default=None,
+        help="Path to the long ingredient CSV. If omitted, the script searches common project-relative locations.",
+    )
     args = parser.parse_args()
 
     mode = "full" if args.full else "quick"
     config = get_run_config(mode)
     ensure_report_dir()
+    recipes_path = resolve_input_file(args.recipes_file, ["allrecipes_all.csv"])
+    ingredients_path = resolve_input_file(args.ingredients_file, ["recipes_ingredients_long.csv"])
 
-    df, long_df, rating_info = build_master_dataset(config)
+    df, long_df, rating_info = build_master_dataset(config, recipes_path, ingredients_path)
     df, target_summary = add_target_columns(df, config, rating_info)
     target_summary.to_csv(REPORT_DIR / "target_family_summary.csv", index=False)
+    run_manifest = {
+        "mode": config.mode,
+        "recipes_file": str(recipes_path),
+        "ingredients_file": str(ingredients_path),
+        "seeds": config.seeds,
+        "rating_source_used": rating_info["rating_source_used"],
+    }
+    (REPORT_DIR / "run_manifest_v3.json").write_text(json.dumps(run_manifest, indent=2))
 
     feature_summary_rows = []
     class_results: List[Dict[str, Any]] = []

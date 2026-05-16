@@ -1,0 +1,13 @@
+{
+  "mode": "full",
+  "recipes_file": "/Users/ems/Desktop/recipes_ml/allrecipes_all.csv",
+  "ingredients_file": "/Users/ems/Desktop/recipes_ml/recipes_ingredients_long.csv",
+  "seeds": [
+    11,
+    22,
+    33,
+    44,
+    55
+  ],
+  "rating_source_used": "rating_value"
+}

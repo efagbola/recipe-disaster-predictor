@@ -15,3 +15,41 @@ This project looks at whether recipe ingredients and nutrition information can h
 `ingredient_interpretation.ipynb` explains the ingredient findings. It uses the chosen Logistic Regression model to identify individual ingredients associated with lower-rated recipes, and it also summarizes risky ingredient pairs and triples.
 
 The overall workflow is to scrape the data, clean it, explore the dataset, build classification models, and then interpret which ingredients or ingredient combinations are linked to lower-rated recipes.
+
+## Final deliverable
+
+The deliverable analysis layer is `src/final_model_recommendation_v3.py`. It consolidates the project around a lower-rating-risk screening workflow and writes the final report bundle to `report/final_model_v3/`.
+
+The script is reproducible on another machine as long as the two source CSV files are available:
+
+- `allrecipes_all.csv`
+- `recipes_ingredients_long.csv`
+
+It looks for those files in common project-relative locations such as the repo root, `data/`, `inputs/`, the parent folder, and the parent folder's `data/` or `inputs/` directories. You can also pass explicit paths.
+
+### Run commands
+
+Quick iteration:
+
+```bash
+python3 src/final_model_recommendation_v3.py --quick --recipes-file /path/to/allrecipes_all.csv --ingredients-file /path/to/recipes_ingredients_long.csv
+```
+
+Full deliverable run:
+
+```bash
+python3 src/final_model_recommendation_v3.py --full --recipes-file /path/to/allrecipes_all.csv --ingredients-file /path/to/recipes_ingredients_long.csv
+```
+
+If the files are placed in one of the default search locations, the explicit path flags are optional.
+
+### Final outputs kept in git
+
+This repo's deliver-ready outputs are the latest files under `report/final_model_v3/`, including:
+
+- the final markdown memo
+- the best-setup summary
+- comparison tables
+- full classification and regression summaries
+- calibration, threshold, subgroup, and figure outputs
+- `run_manifest_v3.json` documenting the last run inputs and seed settings
